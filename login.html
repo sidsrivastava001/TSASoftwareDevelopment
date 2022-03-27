@@ -1,0 +1,89 @@
+<!--
+CSE Capstone Project Group 4
+Aarya Doshi, Robert Kang, Max Guo, Rhea Chandragiri
+June 9, 2021
+The purpose of this file is to create a page for users to login to their account
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+</html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TBD</title>
+  <!--import Google Icon font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link href="css/login.css" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="text-center">
+
+
+
+  <div id="content" class="container">
+    <br></br>
+    <div>
+      <h1>Parking Thing<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+          class="bi bi-compass" viewBox="0 0 16 16">
+          <path
+            d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+          <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z" />
+        </svg> </h1>
+      <br></br>
+      <h4>User Login</h4>
+    </div>
+
+    <!-- login Form -->
+    <main class="form-signin">
+      <form class="login-form" id="login-form">
+        <h1 class="h3 mb-3 fw-normal">Welcome Back!</h1>
+
+        <div class="form-floating">
+          <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <br></br>
+        <!-- Submit button-->
+        <button class="btn btn-warning btn-lg" type="submit" id="submit">Sign In</button>
+        <br>
+      </form>
+    </main>
+
+  </div>
+
+
+  <p>.</p>
+
+  <!--JavaScript & JQuery CDN links and scripts-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script> <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-firestore.js"></script>
+
+  <script src="js/firebaseScripts.js"></script>
+  <script src="js/login.js"></script>
+
+
+</body>
