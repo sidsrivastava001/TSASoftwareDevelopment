@@ -49,7 +49,7 @@ The purpose of this file is to create a page for users to plot colleges on googl
 								<a href="newmycolleges.html">Add Parking Lot</a>
 							</li>
 							<li>
-								<a href="newMap.html">View Current Lots</a>
+								<a href="currentLots.html">View Current Lots</a>
 							</li>
 						</ul>
 					</li>
@@ -83,20 +83,12 @@ The purpose of this file is to create a page for users to plot colleges on googl
 				<p>Use the map below to identify and plot colleges of interest.
 					<br>Click on a college marker to find information about its distance from your house.
 				</p>
-				<!-- Map -->
+				<!-- Parking Grid -->
+				<table id = "parking-garage">
+
+				</table>
 				
-				<div id="map"></div>
-				<div class="row">
-					<!-- Location input box and button-->
-					<form autocomplete="on">
-						<label for="location">Location:</label>
-						<div class="autocomplete">
-							<input type="text" id="location" name="location" placeholder="College Name">
-						</div>
-						<input type="button" id="submitLocation" value="Show on map">
-						<input type="button" id="addToList" value="Add to my list">
-					</form>
-				</div>
+				
 			</div>
 			<!-- Distance information that appears when marker is clicked-->
 			<div id="mapRight">
@@ -130,13 +122,31 @@ The purpose of this file is to create a page for users to plot colleges on googl
 	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-firestore.js"></script>
-	<script src="js/firebaseScripts.js"></script>
-
-	<!--Map scripts-->
-	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-	<script src="js/autocomplete.js"></script>
-	<script src="js/addCollegeToFirebase.js"></script>
-	<script src="js/map.js"></script>
+	
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+		import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	  
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		const firebaseConfig = {
+		  apiKey: "AIzaSyDVf4dLtSTUQuocBnN1Xr_D9UfY0QWdINs",
+		  authDomain: "tsa2022-2fd1a.firebaseapp.com",
+		  databaseURL: "https://tsa2022-2fd1a-default-rtdb.firebaseio.com",
+		  projectId: "tsa2022-2fd1a",
+		  storageBucket: "tsa2022-2fd1a.appspot.com",
+		  messagingSenderId: "948588276209",
+		  appId: "1:948588276209:web:8db030fd8b3910dc92bc50",
+		  measurementId: "G-KHKYSNRSX2"
+		};
+	  
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+	  </script>
+	  <script src="TSA JS/CurrentLots.js"></script>
 
 	<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 	<script async
