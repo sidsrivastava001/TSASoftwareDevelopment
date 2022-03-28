@@ -1,0 +1,11 @@
+td {
+    border: 1px solid black;
+    color: #2e2e2e;
+}
+
+
+.exists:hover {background-color: #eba05e}
+
+.exists {background-color: #94db73}
+
+.noexists {background-color: #2e2e2e}
