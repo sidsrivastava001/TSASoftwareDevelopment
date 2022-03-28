@@ -6,6 +6,7 @@ The purpose of this file is to set up the register form so a user can create an 
 */
 
 
+
 //sign up
 const signupForm = document.querySelector('#signup-form');    
 document.getElementById('dash-btn').style.visibility = 'hidden';
@@ -21,8 +22,9 @@ signupForm.addEventListener('submit', (e) => {
     var city = signupForm['inputCity'].value;
     var state = signupForm['inputState'].value;
     var zip = signupForm['inputZip'].value;
-    var gpa = signupForm['inputGPA'].value;
-    var grade = signupForm['inputGrade'].value;
+    var spots = signupForm['inputSpot'].value;
+    var hand = signupForm['inputHand'].value;
+    var level = signupForm['inputLevel'].value;
 
     //var email1 = removePeriods(email);
     const password = signupForm['inputPassword'].value;
@@ -45,8 +47,9 @@ signupForm.addEventListener('submit', (e) => {
             city: city, 
             state: state, 
             zip: zip,
-            gpa: gpa, 
-            grade: grade
+            spots: spots, 
+            hand: hand,
+            level: level
         });
         localStorage.setItem('currentUserCS', credential.user.uid)
         // Alert the user that they have successfully signed up

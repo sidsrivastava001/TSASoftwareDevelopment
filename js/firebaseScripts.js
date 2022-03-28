@@ -6,17 +6,19 @@ The purpose of this file is set up the Firebase configuration.
 */
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyBenCE-6UKf_a88Nn-a9e0DmYRNebvzAO8",
-  authDomain: "capstone-4-290c7.firebaseapp.com",
-  databaseURL: "https://capstone-4-290c7-default-rtdb.firebaseio.com",
-  projectId: "capstone-4-290c7",
-  storageBucket: "capstone-4-290c7.appspot.com",
-  messagingSenderId: "1048776949916",
-  appId: "1:1048776949916:web:6fb765b278c1ac9fbded59"
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDVf4dLtSTUQuocBnN1Xr_D9UfY0QWdINs",
+  authDomain: "tsa2022-2fd1a.firebaseapp.com",
+  databaseURL: "https://tsa2022-2fd1a-default-rtdb.firebaseio.com",
+  projectId: "tsa2022-2fd1a",
+  storageBucket: "tsa2022-2fd1a.appspot.com",
+  messagingSenderId: "948588276209",
+  appId: "1:948588276209:web:8db030fd8b3910dc92bc50",
+  measurementId: "G-KHKYSNRSX2"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initalizeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
