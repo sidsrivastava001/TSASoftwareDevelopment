@@ -4,8 +4,17 @@ td {
 }
 
 
-.exists:hover {background-color: #eba05e}
-
+.open:hover {background-color: #eba05e}
 .exists {background-color: #94db73}
+.taken {background-color: #c76969}
+
+
 
 .noexists {background-color: #2e2e2e}
+
+
+
+td a {
+    display:block;
+    width:100%;
+}

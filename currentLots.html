@@ -86,7 +86,20 @@ The purpose of this file is to create a page for users to plot colleges on googl
 				</p> -->
 				<!-- Parking Grid -->
 				<!-- <button onclick = "generateGrid()">click me</button> -->
+				<script type='text/javascript'>//<![CDATA[ 
+					// preventDefault();
+					function myFunc(id){
+						// e.preventDefault();
+					   	alert(id);     
+					}
+				//]]>  
+				</script>
 				<table>
+					<!-- <tr>
+						<td class = "exists open" style = "height: 60px; min-width: 60px;" onclick = "myFunc(this.id)">
+							<a onclick = "myFunc(this.id)" id = "0x0x0"></a>
+						</td>
+					</tr> -->
 					<tbody id = "parking-garage">
 					</tbody>
 				</table>
