@@ -12,7 +12,8 @@ signupForm.addEventListener('submit', (e) => {
       var city = signupForm['inputCity'].value;
       var state = signupForm['inputState'].value;
       var zip = signupForm['inputZip'].value;
-      var spots = signupForm['inputSpot'].value;
+      var rows = signupForm['inputRows'].value;
+      var columns = signupForm['inputColumns'].value;
       var level = signupForm['inputLevel'].value;
 
     //var email1 = removePeriods(email);
@@ -35,7 +36,8 @@ signupForm.addEventListener('submit', (e) => {
             city: city, 
             state: state, 
             zip: zip,
-            spots: spots,
+            rows: rows,
+            columns: columns,
             level: level
         });
         localStorage.setItem('currentUserCS', credential.user.uid)
