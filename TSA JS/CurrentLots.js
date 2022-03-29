@@ -77,12 +77,14 @@ onAuthStateChanged(auth, (user) => {
         generateOptions();
         generateGrid();
         document.getElementById("level-select").addEventListener("change", generateGrid);
+        document.getElementById("customize-lot").addEventListener("submit", customizeLot);
         onValue(ref(database, "users/" + uid), (snapshot) => {
             document.getElementById("garage-name").innerText = snapshot.val()['Pname'];
         }, { onlyOnce: true })
     } else {
         uid = null;
         document.getElementById("level-select").addEventListener("change", generateGrid);
+        document.getElementById("customize-lot").addEventListener("submit", customizeLot);
     }
 })
 
@@ -110,7 +112,10 @@ function generateOptions() {
                 option.innerText = k + 1;
                 document.getElementById("level-select").appendChild(option);
             }
-        }, { onlyOnce: true });
+            document.getElementById('levels').value = snapshot.val()['size'].split("x")[0];
+            document.getElementById('rows').value = snapshot.val()['size'].split("x")[1];
+            document.getElementById('columns').value = snapshot.val()['size'].split("x")[2];
+        }, {onlyOnce: true});
     }
 
     // database.ref("garages/" + uid).once("value", function(snapshot) {
@@ -144,7 +149,7 @@ export default function generateGrid() {
     var size, sizearray, spots, level;
     level = Number(document.getElementById("level-select").value);
     if (uid != null) {
-        onValue(ref(database, "/garages/" + uid), (snapshot) => {
+        onValue(ref(database, "garages/" + uid), (snapshot) => {
             size = snapshot.val()['size'];
             spots = snapshot.val()['spots'];
             // console.log(floors);
@@ -153,14 +158,14 @@ export default function generateGrid() {
             //floors, then columns, then rows
             sizearray = [String(size).split("x")[0], String(size).split("x")[1], String(size).split("x")[2]];
             // console.log(sizearray);
-            for (let i = 0; i < Number(sizearray[2]); i++) {
+            for (let i = 0; i < Number(sizearray[1]); i ++){ 
                 // console.log(i);
                 //Creating row
                 var row = document.createElement('tr');
                 row.setAttribute('id', 'row' + String(i + 1));
                 row.style.height = "60px";
                 //Creating columns within each row
-                for (let j = 0; j < Number(sizearray[1]); j++) {
+                for (let j = 0; j < Number(sizearray[2]); j++) {
                     var column = document.createElement("td");
                     column.setAttribute("id", String(level) + "x" + String(i) + "x" + String(j));
                     column.style.minWidth = "60px";
@@ -324,4 +329,44 @@ function toggleState(element_id) {
         // console.log("toggled from entrance to noexists")
         // console.log(cell.classList);
     }
+}
+
+function customizeLot(e) {
+    e.preventDefault();
+    console.log("customize lot")
+    // var form = document.getElementById("customize-lot").value;
+    var levels = document.getElementById("levels").value;
+    var rows = document.getElementById("rows").value;
+    var columns = document.getElementById("columns").value;
+
+    var existingSpots;
+
+    onValue(ref(database, "garages/" + uid + "/spots"), (snapshot) => {
+        existingSpots = snapshot.val();
+
+        var spotData = {};
+        for (var i = 0; i < Number(levels); i++) {
+            for (var j = 0; j < Number(rows); j++) {
+                for (var k = 0; k < Number(columns); k++) {
+                    let key = String(i) + "x" + String(j) + "x" + String(k);
+                    spotData[key] = {
+                        entrance: 0,
+                        exists: 1,
+                        handicapped: 0,
+                        taken: 0
+                    }
+                }
+            }
+        }
+
+        set(ref(database, "garages/" + uid), {
+            size: String(levels) + "x" + String(rows) + "x" + String(columns),
+            spots: spotData
+        }).then(function() {
+            update(ref(database, "garages/" + uid + "/spots"), existingSpots);
+            generateGrid();
+            generateOptions();
+        });
+
+    }, {onlyOnce: true});
 }
