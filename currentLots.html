@@ -5,7 +5,7 @@ June 9, 2021
 The purpose of this file is to create a page for users to plot colleges on google maps to see the relative locations of colleges
 -->
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -46,11 +46,11 @@ The purpose of this file is to create a page for users to plot colleges on googl
 						<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My
 							Parking Lots</a>
 						<ul class="collapse list-unstyled" id="pageSubmenu">
+							<!-- <li>
+								<a href="newLot.html">Add Parking Lot</a>
+							</li> -->
 							<li>
-								<a href="newmycolleges.html">Add Parking Lot</a>
-							</li>
-							<li>
-								<a href="currentLots.html">View Current Lots</a>
+								<a href="currentLots.html">View Current Lot</a>
 							</li>
 						</ul>
 					</li>
@@ -81,8 +81,10 @@ The purpose of this file is to create a page for users to plot colleges on googl
 			<div id="mapLeft">
 				<!-- Heading and instructions -->
 				<div class="">
-					<h2 class="mb-4">Parking Garage</h2>
+					<h2 class="mb-4" id = "garage-name">Parking Garage</h2>
 					<h4>Select a Level</h4>
+					<script type = "module" src="TSA JS/CurrentLots.js">
+					</script>
 					<select class = "custom-select" id="level-select" style = "width: 100px">
 						<option value="" selected>Select</option>
 					</select>
@@ -186,7 +188,7 @@ The purpose of this file is to create a page for users to plot colleges on googl
 
 	  </script> -->
 	  <!-- <script type = "module" src="js/logout.js"></script> -->
-	  <script type = "module" src="TSA JS/CurrentLots.js"></script>
+	  
 
 	<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 	<!-- <script async -->

@@ -56,7 +56,9 @@ function isSignedIn(){
 
 
 
-
+// document.addEventListener("DOMContentLoaded", function() {
+//     document.getElementById("level-select").onchange = generateGrid();
+// })
 
 
 function removePeriods(input) {
@@ -72,11 +74,15 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log(user.uid);
         uid = user.uid;
-        // generateGrid();
         generateOptions();
-        document.getElementById("level-select").onchange = generateGrid();
+        generateGrid();
+        document.getElementById("level-select").addEventListener("change", generateGrid);
+        onValue(ref(database, "users/" + uid), (snapshot) => {
+            document.getElementById("garage-name").innerText = snapshot.val()['Pname'];
+        }, {onlyOnce: true})
     } else {
         uid = null;
+        document.getElementById("level-select").addEventListener("change", generateGrid);
     }
 })
 
@@ -90,20 +96,21 @@ function removeAllChildren(id) {
 }
 
 function generateOptions() {
+    console.log("generateOptions")
     removeAllChildren("level-select");
     var size, spots, sizearray;
     if (uid != null) {
-        onValue(ref(database, "/garages/" + uid), (snapshot) => {
+        onValue(ref(database, "garages/" + uid), (snapshot) => {
             size = snapshot.val()['size'];
             spots = snapshot.val()['spots'];
             sizearray = [String(size).split("x")[0], String(size).split("x")[1], String(size).split("x")[2]];
             for (let k = 0; k < sizearray[0]; k++) {
                 var option = document.createElement("option");
                 option.value = k;
-                option.innerText = k;
+                option.innerText = k + 1;
                 document.getElementById("level-select").appendChild(option);
             }
-        })
+        }, {onlyOnce: true});
     }
 
     // database.ref("garages/" + uid).once("value", function(snapshot) {
@@ -124,10 +131,15 @@ function generateOptions() {
     // })
 }
 
-export function generateGrid(e) {
+export default function generateGrid() {
     // e.preventDefault();
+    // console.log("generateGrid")
     var grid = document.getElementById("parking-garage");
-    removeAllChildren("parking-garage");
+    if (document.getElementById("parking-garage") != null) {
+        while (document.getElementById("parking-garage").firstChild) {
+            document.getElementById("parking-garage").removeChild(document.getElementById("parking-garage").firstChild);
+        }
+    }
     // removeAllChildren("level-select");
     var size, sizearray, spots, level;
     level = Number(document.getElementById("level-select").value);
@@ -168,15 +180,15 @@ export function generateGrid(e) {
                         e.preventDefault();
                         let id = String(level) + "x" + String(i) + "x" + String(j);
                         toggleState(id);
-                        generateGrid();
-                        generateOptions();
+                        // generateGrid();
+                        // generateOptions();
                     })
                     column.style.textAlign = "center";
                     row.appendChild(column);
                 }
                 grid.appendChild(row);
             }
-        });
+        }, {onlyOnce: true});
     }
     // database.ref("garages/" + uid).once("value", function(snapshot) {
     //     size = snapshot.val()['size'];
@@ -238,8 +250,8 @@ function toggleState(element_id) {
         //     exists: 1,
         //     handicapped: 0
         // })
-        console.log("toggled from noexists to normal")
-        console.log(cell.classList);
+        // console.log("toggled from noexists to normal")
+        // console.log(cell.classList);
     } else if (cell.classList.contains('normal')) {
         cell.classList.remove("normal");
         cell.classList.add("handicapped");
@@ -254,8 +266,8 @@ function toggleState(element_id) {
         //     exists: 1,
         //     handicapped: 1
         // })
-        console.log("toggled from normal to handicapped")
-        console.log(cell.classList);
+        // console.log("toggled from normal to handicapped")
+        // console.log(cell.classList);
     } else if (cell.classList.contains("handicapped")) {
         cell.classList.remove("handicapped");
         cell.classList.add("entrance");
@@ -270,11 +282,11 @@ function toggleState(element_id) {
         //     exists: 1,
         //     handicapped: 0
         // })
-        console.log("toggled from handicapped to entrance")
-        console.log(cell.classList);
+        // console.log("toggled from handicapped to entrance")
+        // console.log(cell.classList);
     } else if (cell.classList.contains("entrance")) {
         cell.classList.remove("entrance");
-        cell.classList.remove("normal");
+        // cell.classList.remove("normal");
         cell.classList.add("noexists");
         var updates = {
             "entrance": 0,
@@ -287,7 +299,7 @@ function toggleState(element_id) {
         //     exists: 0,
         //     handicapped: 0
         // })
-        console.log("toggled from entrance to noexists")
-        console.log(cell.classList);
+        // console.log("toggled from entrance to noexists")
+        // console.log(cell.classList);
     }
 }
