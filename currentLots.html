@@ -75,10 +75,31 @@ The purpose of this file is to create a page for users to plot colleges on googl
 
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
-			<div id="mapLeft">
+			<div id="">
 				<!-- Heading and instructions -->
 				<div class="">
-					<h2 class="mb-4" id = "garage-name">Parking Garage</h2>
+					<div class="">
+						<h1 class="mb-4" id = "garage-name">Parking Garage</h1>
+						<h4>Lot Customizer</h4>
+						<form class = "row g-6" id = "customize-lot">
+							<div class="col-md-4">
+								<label for="levels" class="form-label"># of Levels</label>
+								<input type="number" class="form-control" id="levels" required>
+							</div>
+							<div class="col-md-4">
+								<label for="rows" class="form-label"># of Rows</label>
+								<input type="number" class="form-control" id="rows" required>
+							</div>
+							<div class="col-md-4">
+								<label for="columns" class="form-label"># of Columns</label>
+								<input type="number" class="form-control" id="columns" required>
+							</div>
+							<div class="col-10">
+								<button id = "submit_btn" class="btn" style = "background-color: #495acc; color: white;">Update Dimensions</button>
+							</div>
+						</form>
+					</div>
+						<!-- <h2 class="mb-4" id = "garage-name">Parking Garage</h2> -->
 					<h4>Select a Level</h4>
 					<script type = "module" src="TSA JS/CurrentLots.js">
 					</script>

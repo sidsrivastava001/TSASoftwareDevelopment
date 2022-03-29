@@ -77,12 +77,14 @@ onAuthStateChanged(auth, (user) => {
         generateOptions();
         generateGrid();
         document.getElementById("level-select").addEventListener("change", generateGrid);
+        document.getElementById("customize-lot").addEventListener("submit", customizeLot);
         onValue(ref(database, "users/" + uid), (snapshot) => {
             document.getElementById("garage-name").innerText = snapshot.val()['Pname'];
         }, {onlyOnce: true})
     } else {
         uid = null;
         document.getElementById("level-select").addEventListener("change", generateGrid);
+        document.getElementById("customize-lot").addEventListener("submit", customizeLot);
     }
 })
 
@@ -302,4 +304,14 @@ function toggleState(element_id) {
         // console.log("toggled from entrance to noexists")
         // console.log(cell.classList);
     }
+}
+
+function customizeLot() {
+    var form = document.getElementById("customize-lot");
+    var levels = form['levels'];
+    var rows = form['rows'];
+    var columns = form['columns'];
+
+    
+
 }
