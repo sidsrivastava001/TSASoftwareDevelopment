@@ -169,7 +169,7 @@ export default function generateGrid() {
                     var column = document.createElement("td");
                     column.setAttribute("id", String(level) + "x" + String(i) + "x" + String(j));
                     column.style.minWidth = "60px";
-                    console.log(column.id, spots[String(level) + "x" + String(i) + "x" + String(j)]);
+                    // console.log(column.id, spots[String(level) + "x" + String(i) + "x" + String(j)]);
                     if (spots[String(level) + "x" + String(i) + "x" + String(j)]['entrance'] == 1) {
                         column.classList.add("entrance");
                     } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['handicapped'] == 1) {
