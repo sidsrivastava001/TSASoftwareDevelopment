@@ -1,6 +1,12 @@
 td {
     border: 1px solid black;
     color: #2e2e2e;
+    min-height: 60px;
+}
+
+td.key {
+    min-width: 150px;
+    text-align: center;
 }
 
 table {
@@ -16,6 +22,10 @@ td:hover {background-color: #eba05e}
 .entrance {background-color: #a14e48}
 
 .noexists {background-color: #2e2e2e}
+
+tr.key {
+    height: 60px;
+}
 
 td a {
     display:block;

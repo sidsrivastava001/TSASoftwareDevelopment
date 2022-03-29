@@ -1,12 +1,44 @@
 document.addEventListener("DOMContentLoaded", function() {
     generateGrid();
+    generateOptions();
 }, false);
 
-function generateGrid() {
+function removeAllChildren(id) {
+    var e = document.getElementById(id);
+    var child = e.firstElementChild; 
+    while (child) {
+        e.removeChild(child);
+        child = e.firstElementChild;
+    }
+}
+
+function generateOptions() {
+    removeAllChildren("level-select");
+    firebase.database().ref("garages/garage1").once("value", function(snapshot) {
+        size = snapshot.val()['size'];
+        spots = snapshot.val()['spots'];
+    }).then(function() {
+        // console.log(floors);
+        // console.log(columns);
+        // console.log(rows);
+        //floors, then columns, then rows
+        sizearray = [String(size).split("x")[0], String(size).split("x")[1], String(size).split("x")[2]];
+        for (let k = 0; k < sizearray[0]; k++) {
+            var option = document.createElement("option");
+            option.value = k;
+            option.innerText = k;
+            document.getElementById("level-select").appendChild(option);
+        }
+    })
+}
+
+function generateGrid(e) {
+    // e.preventDefault();
     var grid = document.getElementById("parking-garage");
+    removeAllChildren("parking-garage");
+    // removeAllChildren("level-select");
     var size, sizearray, spots, level;
-    level = 0;
-    // level = document.getElementById("dropdown-menu").innerText;
+    level = Number(document.getElementById("level-select").value);
     firebase.database().ref("garages/garage1").once("value", function(snapshot) {
         size = snapshot.val()['size'];
         spots = snapshot.val()['spots'];
@@ -62,6 +94,6 @@ function toggleState(element_id) {
         cell.classList.add("entrance");
     } else if (cell.classList.contains("entrance")) {
         cell.classList.remove("entrance");
-        cell.classList.add("normal");
+        cell.classList.add("noexists");
     }
 }

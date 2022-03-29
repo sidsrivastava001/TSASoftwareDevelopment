@@ -80,7 +80,30 @@ The purpose of this file is to create a page for users to plot colleges on googl
 		<div id="content" class="p-4 p-md-5 pt-5">
 			<div id="mapLeft">
 				<!-- Heading and instructions -->
-				<h2 class="mb-4">Parking Garage</h2>
+				<div class="">
+					<h2 class="mb-4">Parking Garage</h2>
+					<h4>Select a Level</h4>
+					<select class = "custom-select" id="level-select" onchange = "generateGrid()">
+						<option value="0" selected>0</option>
+					</select>
+					<table>
+						<tr class = "key">
+							<td class = "key" style = "background-color: #94db73;">
+								Regular Spot
+							</td>
+							<td class = "key" style = "background-color: #495acc;color: white">
+								Handicapped Spot
+							</td>
+							<td class = "key" style = "background-color: #a14e48; color: white">
+								Garage Entrance
+							</td>
+							<td class = "key" style = "background-color: #2e2e2e; color: white">
+								Spot Doesn't Exist
+							</td>
+						</tr>
+					</table>
+				</div>
+					
 				<!-- <p>Use the map below to identify and plot colleges of interest. -->
 					<!-- <br>Click on a college marker to find information about its distance from your house.
 				</p> -->
