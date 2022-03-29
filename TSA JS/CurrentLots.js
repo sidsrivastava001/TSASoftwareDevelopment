@@ -58,7 +58,7 @@ function generateGrid(e) {
             //Creating columns within each row
             for (let j = 0; j < Number(sizearray[1]); j++) {
                 var column = document.createElement("td");
-                column.setAttribute("id", String(i) + "x" + String(j));
+                column.setAttribute("id", String(level) + "x" + String(i) + "x" + String(j));
                 column.style.minWidth = "60px";
                 
                 if (spots[String(level) + "x" + String(i) + "x" + String(j)]['entrance'] == 1) {
@@ -80,20 +80,41 @@ function generateGrid(e) {
 
 function toggleState(element_id) {
     // alert(element_id);
-    // console.log(String(element_id));
+    console.log(String(element_id));
     // var states = ['normal', 'handicapped', 'entrance'];
     var cell = document.getElementById(element_id);
+    //change from not existing to normal spot
     if (cell.classList.contains("noexists")) {
         cell.classList.remove("noexists");
         cell.classList.add("normal");
+        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+            entrance: 0,
+            exists: 1,
+            handicapped: 0
+        })
     } else if (cell.classList.contains('normal')) {
         cell.classList.remove("normal");
         cell.classList.add("handicapped");
+        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+            entrance: 0,
+            exists: 1,
+            handicapped: 1
+        })
     } else if (cell.classList.contains("handicapped")) {
         cell.classList.remove("handicapped");
         cell.classList.add("entrance");
+        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+            entrance: 1,
+            exists: 1,
+            handicapped: 0
+        })
     } else if (cell.classList.contains("entrance")) {
         cell.classList.remove("entrance");
         cell.classList.add("noexists");
+        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+            entrance: 0,
+            exists: 0,
+            handicapped: 0
+        })
     }
 }
