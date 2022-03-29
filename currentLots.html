@@ -84,15 +84,15 @@ The purpose of this file is to create a page for users to plot colleges on googl
 						<form class = "row g-6" id = "customize-lot">
 							<div class="col-md-4">
 								<label for="levels" class="form-label"># of Levels</label>
-								<input type="number" class="form-control" id="levels" required>
+								<input type="number" class="form-control" id="levels" min="1" max="5"  required>
 							</div>
 							<div class="col-md-4">
 								<label for="rows" class="form-label"># of Rows</label>
-								<input type="number" class="form-control" id="rows" required>
+								<input type="number" class="form-control" id="rows" min="1" max="30" required>
 							</div>
 							<div class="col-md-4">
 								<label for="columns" class="form-label"># of Columns</label>
-								<input type="number" class="form-control" id="columns" required>
+								<input type="number" class="form-control" id="columns" min="1" max="30" required>
 							</div>
 							<div class="col-10">
 								<button id = "submit_btn" class="btn" style = "background-color: #495acc; color: white;">Update Dimensions</button>

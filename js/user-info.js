@@ -31,9 +31,6 @@ function setInfo() {
         document.getElementById('city').value = city;
         document.getElementById('state').value = state;
         document.getElementById('zip').value = zip;
-        document.getElementById('levels').textContent = levels;
-        document.getElementById('rows').textContent = rows;
-        document.getElementById('columns').textContent = columns;
 
         document.getElementById('qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + uid;
         document.getElementById('info-container').style = "width: 50%; float:left;"

@@ -191,14 +191,12 @@ export default function generateGrid() {
                     })*/
                     var mouseDown = false;
                     column.addEventListener('mousedown', (e) => {
-                        // Disable text selection
                         e.preventDefault();
-                        // set boolean
                         let id = String(level) + "x" + String(i) + "x" + String(j);
-                            toggleState(id);
+                        toggleState(id);
                         mouseDown = true;
                     });
-                    column.addEventListener('mouseup', (e) => {
+                    window.addEventListener('mouseup', (e) => {
                         mouseDown = false;
                     });
 
