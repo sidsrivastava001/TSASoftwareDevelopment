@@ -7,6 +7,7 @@ td {
 td.key {
     min-width: 150px;
     text-align: center;
+    filter: brightness(100%) !important;
 }
 
 table {
@@ -14,7 +15,7 @@ table {
     border-collapse: separate;
 }
 
-td:hover {  filter: brightness(75%);}
+td:hover { filter: brightness(75%);}
 .exists {background-color: #94db73}
 .normal {background-color: #94db73}
 .handicapped {background-color: #495acc; color:white;}
