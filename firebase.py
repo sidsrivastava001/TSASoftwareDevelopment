@@ -10,8 +10,7 @@ config = {
 firebaseref = pyrebase.initialize_app(config)
 
 data = {
-    "garages": {
-        "dreng@ctemc_()org" : {
+        "2kcXj0z71Ce4ZzcB5llcUpUlbv12" : {
             "size": "2x2x2",
             "spots": {
                 "0x0x0": {
@@ -65,6 +64,6 @@ data = {
             }
         }
     }
-}
 
-firebaseref.database().child().update(data)
+
+firebaseref.database().child("garages").update(data)

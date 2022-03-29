@@ -15,12 +15,12 @@ var currentUser;
 //     }
 // })
 
-// function removePeriods(input) {
-//     return input.replace(/\./g, "_()");
-// }
-// function addPeriods(input) {
-//     return input.replace(/\_\(\)/g, ".");
-// }
+function removePeriods(input) {
+    return input.replace(/\./g, "_()");
+}
+function addPeriods(input) {
+    return input.replace(/\_\(\)/g, ".");
+}
 
 // const auth = getAuth();
 // onAuthStateChanged(auth, (user) => {
