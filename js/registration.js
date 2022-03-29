@@ -2,6 +2,38 @@
 const signupForm = document.querySelector('#signup-form');    
 document.getElementById('dash-btn').style.visibility = 'hidden';
 
+var currentUser;
+
+// firebase.auth().onAuthStateChanged(user => {
+//     if (user) {
+//         currentUser = user;
+//     } else {
+//         currentUser = null;
+//     }
+// })
+
+// function removePeriods(input) {
+//     return input.replace(/\./g, "_()");
+// }
+// function addPeriods(input) {
+//     return input.replace(/\_\(\)/g, ".");
+// }
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      currentUser = user;
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      currentUser = null;
+    }
+  });
+  
+
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -39,7 +71,26 @@ signupForm.addEventListener('submit', (e) => {
             rows: rows,
             columns: columns,
             level: level
-        });
+        }).then(function() {
+            var spotData = {};
+            for (var i = 0; i < Number(level); i++) {
+                for (var j = 0; j < Number(rows); j++) {
+                    for (var k = 0; k < Number(columns); k++) {
+                        let key = String(i) + "x" + String(j) + "x" + String(k);
+                        spotData[key] = {
+                            entrance: 0,
+                            exists: 1, 
+                            handicapped: 0, 
+                            taken: 0
+                        } 
+                    }
+                }
+            }
+            firebase.database().ref("garages/" + removePeriods(email)).update({
+                size: String(level) + "x" + String(rows) + "x" + String(columns),
+                spots: spotData
+            });
+        })
         localStorage.setItem('currentUserCS', credential.user.uid)
         // Alert the user that they have successfully signed up
         alert("Thank you for signing up! Go to the Dashboard by clicking on the button in the top right corner");

@@ -3,6 +3,39 @@ document.addEventListener("DOMContentLoaded", function() {
     generateOptions();
 }, false);
 
+
+
+var currentUser;
+
+// firebase.auth().onAuthStateChanged(user => {
+//     if (user) {
+//         currentUser = user;
+//     } else {
+//         currentUser = null;
+//     }
+// })
+
+// function removePeriods(input) {
+//     return input.replace(/\./g, "_()");
+// }
+// function addPeriods(input) {
+//     return input.replace(/\_\(\)/g, ".");
+// }
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      currentUser = user;
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      currentUser = null;
+    }
+  });
+
 function removeAllChildren(id) {
     var e = document.getElementById(id);
     var child = e.firstElementChild; 
@@ -14,7 +47,7 @@ function removeAllChildren(id) {
 
 function generateOptions() {
     removeAllChildren("level-select");
-    firebase.database().ref("garages/garage1").once("value", function(snapshot) {
+    app.database().ref("garages/" + removePeriods(currentUser.email)).once("value", function(snapshot) {
         size = snapshot.val()['size'];
         spots = snapshot.val()['spots'];
     }).then(function() {
@@ -39,7 +72,7 @@ function generateGrid(e) {
     // removeAllChildren("level-select");
     var size, sizearray, spots, level;
     level = Number(document.getElementById("level-select").value);
-    firebase.database().ref("garages/garage1").once("value", function(snapshot) {
+    app.database().ref("garages/" + removePeriods(currentUser.email)).once("value", function(snapshot) {
         size = snapshot.val()['size'];
         spots = snapshot.val()['spots'];
     }).then(function() {
@@ -87,7 +120,7 @@ function toggleState(element_id) {
     if (cell.classList.contains("noexists")) {
         cell.classList.remove("noexists");
         cell.classList.add("normal");
-        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+        app.database().ref("garages/garage1/spots/" + String(element_id)).update({
             entrance: 0,
             exists: 1,
             handicapped: 0
@@ -95,7 +128,7 @@ function toggleState(element_id) {
     } else if (cell.classList.contains('normal')) {
         cell.classList.remove("normal");
         cell.classList.add("handicapped");
-        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+        app.database().ref("garages/garage1/spots/" + String(element_id)).update({
             entrance: 0,
             exists: 1,
             handicapped: 1
@@ -103,7 +136,7 @@ function toggleState(element_id) {
     } else if (cell.classList.contains("handicapped")) {
         cell.classList.remove("handicapped");
         cell.classList.add("entrance");
-        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+        app.database().ref("garages/garage1/spots/" + String(element_id)).update({
             entrance: 1,
             exists: 1,
             handicapped: 0
@@ -111,7 +144,7 @@ function toggleState(element_id) {
     } else if (cell.classList.contains("entrance")) {
         cell.classList.remove("entrance");
         cell.classList.add("noexists");
-        firebase.database().ref("garages/garage1/spots/" + String(element_id)).update({
+        app.database().ref("garages/garage1/spots/" + String(element_id)).update({
             entrance: 0,
             exists: 0,
             handicapped: 0

@@ -11,32 +11,60 @@ firebaseref = pyrebase.initialize_app(config)
 
 data = {
     "garages": {
-        "garage1" : {
+        "dreng@ctemc_()org" : {
             "size": "2x2x2",
             "spots": {
                 "0x0x0": {
                     "exists": 1,
                     "taken": 0,
-                    "handicapped": 0
+                    "handicapped": 0,
+                    "entrance": 0
                 },
                 "0x0x1": {
                     "exists": 1,
-                    "taken": 1,
-                    "handicapped": 0
+                    "taken": 0,
+                    "handicapped": 0,
+                    "entrance": 0
                 },
                 "0x1x0": {
                     "exists": 1,
                     "taken": 0,
-                    "handicapped": 0
+                    "handicapped": 0,
+                    "entrance": 0
                 },
                 "0x1x1": {
-                    "exists": 0,
+                    "exists": 1,
                     "taken": 0,
-                    "handicapped": 0
+                    "handicapped": 0,
+                    "entrance": 0
+                },
+                "1x0x0": {
+                    "exists": 1,
+                    "taken": 0,
+                    "handicapped": 0,
+                    "entrance": 0
+                },
+                "1x0x1": {
+                    "exists": 1,
+                    "taken": 0,
+                    "handicapped": 0,
+                    "entrance": 0
+                },
+                "1x1x0": {
+                    "exists": 1,
+                    "taken": 0,
+                    "handicapped": 0,
+                    "entrance": 0
+                },
+                "1x1x1": {
+                    "exists": 1,
+                    "taken": 0,
+                    "handicapped": 0,
+                    "entrance": 0
                 }
             }
         }
     }
 }
 
-firebaseref.database().child().set(data)
+firebaseref.database().child().update(data)
