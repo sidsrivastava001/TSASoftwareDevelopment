@@ -3,16 +3,19 @@ td {
     color: #2e2e2e;
 }
 
+table {
+    border-spacing: 15px;
+    border-collapse: separate;
+}
 
-.open:hover {background-color: #eba05e}
+td:hover {background-color: #eba05e}
 .exists {background-color: #94db73}
-.taken {background-color: #c76969}
 
-
+.normal {background-color: #94db73}
+.handicapped {background-color: #495acc}
+.entrance {background-color: #a14e48}
 
 .noexists {background-color: #2e2e2e}
-
-
 
 td a {
     display:block;

@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function generateGrid() {
     var grid = document.getElementById("parking-garage");
-    var size, sizearray, spots;
+    var size, sizearray, spots, level;
+    level = 0;
+    // level = document.getElementById("dropdown-menu").innerText;
     firebase.database().ref("garages/garage1").once("value", function(snapshot) {
         size = snapshot.val()['size'];
         spots = snapshot.val()['spots'];
@@ -25,28 +27,18 @@ function generateGrid() {
             for (let j = 0; j < Number(sizearray[1]); j++) {
                 var column = document.createElement("td");
                 column.setAttribute("id", String(i) + "x" + String(j));
+                column.style.minWidth = "60px";
                 
-                if (spots["0" + "x" + String(i) + "x" + String(j)]['exists'] == 1) {
-                    column.classList.add("exists");
-                    column.classList.remove("noexists");
-                    column.innerText = String(i+1) + "x" + String(j+1);
-                    column.style.minWidth = "60px";
-                    column.style.textAlign = "center";
-                    
-                } else {
-                    column.classList.add("noexists");
-                    column.classList.remove("exists");
+                if (spots[String(level) + "x" + String(i) + "x" + String(j)]['entrance'] == 1) {
+                    column.classList.add("entrance");
+                } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['handicapped'] == 1){
+                    column.classList.add("handicapped");
+                } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['entrance'] == 0 && spots[String(level) + "x" + String(i) + "x" + String(j)]['handicapped'] == 0) {
+                    column.classList.add("normal");
                 }
-                if (spots["0" + "x" + String(i) + "x" + String(j)]['taken'] == 0) {
-                    column.classList.add("open");
-                    column.classList.remove("taken");
-                    column.setAttribute("onclick", "reserveSpot(this.id)");
-                } else {
-                    column.classList.add("taken");
-                    column.classList.remove("open");
-                }
-                
-                
+                column.innerText = String(i+1) + "x" + String(j+1);
+                column.setAttribute("onclick", "toggleState(this.id)");
+                column.style.textAlign = "center";
                 row.appendChild(column);
             }
             grid.appendChild(row);
@@ -54,7 +46,22 @@ function generateGrid() {
     });
 }
 
-function reserveSpot(element_id) {
-    alert(element_id);
-    console.log(String(element_id));
+function toggleState(element_id) {
+    // alert(element_id);
+    // console.log(String(element_id));
+    // var states = ['normal', 'handicapped', 'entrance'];
+    var cell = document.getElementById(element_id);
+    if (cell.classList.contains("noexists")) {
+        cell.classList.remove("noexists");
+        cell.classList.add("normal");
+    } else if (cell.classList.contains('normal')) {
+        cell.classList.remove("normal");
+        cell.classList.add("handicapped");
+    } else if (cell.classList.contains("handicapped")) {
+        cell.classList.remove("handicapped");
+        cell.classList.add("entrance");
+    } else if (cell.classList.contains("entrance")) {
+        cell.classList.remove("entrance");
+        cell.classList.add("normal");
+    }
 }
