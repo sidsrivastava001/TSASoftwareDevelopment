@@ -339,8 +339,8 @@ function customizeLot(e) {
 
     var existingSpots;
 
-    onValue(ref(database, "garages/" + uid + "/spots"), (snapshot) => {
-        existingSpots = snapshot.val();
+    onValue(ref(database, "garages/" + uid), (snapshot) => {
+        existingSpots = snapshot.val()['spots'];
 
         var spotData = {};
         for (var i = 0; i < Number(levels); i++) {
@@ -356,15 +356,41 @@ function customizeLot(e) {
                 }
             }
         }
-
-        set(ref(database, "garages/" + uid), {
-            size: String(levels) + "x" + String(rows) + "x" + String(columns),
-            spots: spotData
-        }).then(function() {
-            update(ref(database, "garages/" + uid + "/spots"), existingSpots);
-            generateGrid();
-            generateOptions();
-        });
+        // If the new dimensions are all the same or greater than the previous ones
+        if (levels - 1 >= Number(snapshot.val()['size'].split("x")[0]) && rows - 1 >= Number(snapshot.val()['size'].split("x")[1]) && columns - 1 >= Number(snapshot.val()['size'].split("x")[2])) {
+            
+            console.log("Expanding")
+            
+            set(ref(database, "garages/" + uid), {
+                size: String(levels) + "x" + String(rows) + "x" + String(columns),
+                spots: spotData
+            }).then(function() {
+                update(ref(database, "garages/" + uid + "/spots"), existingSpots);
+                generateGrid();
+                generateOptions();
+            });
+        } else {
+            // Taking out the spots that are not present in the new configuration. 
+            console.log("contracting")
+            for (var key in existingSpots) {
+                // Get the old coordinates of each spot and compare them to the max dimensions of the new parking lot
+                var oldlevels = Number(String(key).split("x")[0]);
+                var oldrows = Number(String(key).split("x")[1]);
+                var oldcolumns = Number(String(key).split("x")[2]);
+                // If any of the spot's coordinates are greater than the new dimensions (i.e. outside the new garage size), delete the spot in the existingSpots dict
+                if (oldlevels > levels - 1 || oldrows > rows - 1 || oldcolumns > columns - 1) {
+                    delete existingSpots[key];
+                }
+            }
+            set(ref(database, "garages/" + uid), {
+                size: String(levels) + "x" + String(rows) + "x" + String(columns),
+                spots: spotData
+            }).then(function() {
+                update(ref(database, "garages/" + uid + "/spots"), existingSpots);
+                generateGrid();
+                generateOptions();
+            });
+        }
 
     }, {onlyOnce: true});
 }
