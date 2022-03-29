@@ -6,7 +6,6 @@ The purpose of this file is to set up the register form so a user can create an 
 */
 
 
-
 //sign up
 const signupForm = document.querySelector('#signup-form');    
 document.getElementById('dash-btn').style.visibility = 'hidden';

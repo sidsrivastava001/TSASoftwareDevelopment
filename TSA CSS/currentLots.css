@@ -10,18 +10,17 @@ td.key {
 }
 
 table {
-    border-spacing: 15px;
+    border-spacing: 8px;
     border-collapse: separate;
 }
 
-td:hover {background-color: #eba05e}
+td:hover {  filter: brightness(75%);}
 .exists {background-color: #94db73}
-
 .normal {background-color: #94db73}
-.handicapped {background-color: #495acc}
-.entrance {background-color: #a14e48}
+.handicapped {background-color: #495acc; color:white;}
+.entrance {background-color: #a14e48; color:white;}
 
-.noexists {background-color: #2e2e2e}
+.noexists {background-color: #2e2e2e; color:white;}
 
 tr.key {
     height: 60px;
