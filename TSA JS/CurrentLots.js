@@ -5,13 +5,13 @@ import { getDatabase, ref, update, set, onValue } from "https://www.gstatic.com/
 
 const firebaseConfig = {
     apiKey: "AIzaSyDVf4dLtSTUQuocBnN1Xr_D9UfY0QWdINs",
-  authDomain: "tsa2022-2fd1a.firebaseapp.com",
-  databaseURL: "https://tsa2022-2fd1a-default-rtdb.firebaseio.com",
-  projectId: "tsa2022-2fd1a",
-  storageBucket: "tsa2022-2fd1a.appspot.com",
-  messagingSenderId: "948588276209",
-  appId: "1:948588276209:web:8db030fd8b3910dc92bc50",
-  measurementId: "G-KHKYSNRSX2"
+    authDomain: "tsa2022-2fd1a.firebaseapp.com",
+    databaseURL: "https://tsa2022-2fd1a-default-rtdb.firebaseio.com",
+    projectId: "tsa2022-2fd1a",
+    storageBucket: "tsa2022-2fd1a.appspot.com",
+    messagingSenderId: "948588276209",
+    appId: "1:948588276209:web:8db030fd8b3910dc92bc50",
+    measurementId: "G-KHKYSNRSX2"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -30,25 +30,25 @@ logout.addEventListener('click', (e) => {
     console.log("You have signed out.")
     window.location = "index.html";
     isSignedIn();
-  });
+});
 
 // check signed in status
-function isSignedIn(){
-  var signedIn;
+function isSignedIn() {
+    var signedIn;
 
-  // retrieve status
-  if (!localStorage.getItem('currentUserCS')) {
-      signedIn = false;
-  } else{
-      signedIn = true;
-  }
+    // retrieve status
+    if (!localStorage.getItem('currentUserCS')) {
+        signedIn = false;
+    } else {
+        signedIn = true;
+    }
 
-  // display button based on status
-  if (signedIn){
-      document.getElementById('logout-btn').style.visibility = 'visible';
-  } else {
-      document.getElementById('logout-btn').style.visibility = 'hidden';
-  }
+    // display button based on status
+    if (signedIn) {
+        document.getElementById('logout-btn').style.visibility = 'visible';
+    } else {
+        document.getElementById('logout-btn').style.visibility = 'hidden';
+    }
 }
 
 
@@ -79,7 +79,7 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById("level-select").addEventListener("change", generateGrid);
         onValue(ref(database, "users/" + uid), (snapshot) => {
             document.getElementById("garage-name").innerText = snapshot.val()['Pname'];
-        }, {onlyOnce: true})
+        }, { onlyOnce: true })
     } else {
         uid = null;
         document.getElementById("level-select").addEventListener("change", generateGrid);
@@ -92,7 +92,7 @@ function removeAllChildren(id) {
             document.getElementById(id).removeChild(document.getElementById(id).firstChild);
         }
     }
-    
+
 }
 
 function generateOptions() {
@@ -110,7 +110,7 @@ function generateOptions() {
                 option.innerText = k + 1;
                 document.getElementById("level-select").appendChild(option);
             }
-        }, {onlyOnce: true});
+        }, { onlyOnce: true });
     }
 
     // database.ref("garages/" + uid).once("value", function(snapshot) {
@@ -153,42 +153,64 @@ export default function generateGrid() {
             //floors, then columns, then rows
             sizearray = [String(size).split("x")[0], String(size).split("x")[1], String(size).split("x")[2]];
             // console.log(sizearray);
-            for (let i = 0; i < Number(sizearray[2]); i ++){ 
+            for (let i = 0; i < Number(sizearray[2]); i++) {
                 // console.log(i);
                 //Creating row
                 var row = document.createElement('tr');
-                row.setAttribute('id', 'row' + String(i+1));
+                row.setAttribute('id', 'row' + String(i + 1));
                 row.style.height = "60px";
                 //Creating columns within each row
                 for (let j = 0; j < Number(sizearray[1]); j++) {
                     var column = document.createElement("td");
                     column.setAttribute("id", String(level) + "x" + String(i) + "x" + String(j));
                     column.style.minWidth = "60px";
-                    
+                    console.log(column.id, spots[String(level) + "x" + String(i) + "x" + String(j)]);
                     if (spots[String(level) + "x" + String(i) + "x" + String(j)]['entrance'] == 1) {
                         column.classList.add("entrance");
-                    } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['handicapped'] == 1){
+                    } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['handicapped'] == 1) {
                         column.classList.add("handicapped");
                     } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['exists'] == 0) {
                         column.classList.add("noexists")
                     } else {
                         column.classList.add("normal");
                     }
-                    column.innerText = String(i+1) + "x" + String(j+1);
+                    column.innerText = String(i + 1) + "x" + String(j + 1);
                     // column.setAttribute("onclick", "toggleState(this.id)");
-                    column.addEventListener('click', (e) => {
+
+                  /* column.addEventListener('click', (e) => {
                         e.preventDefault();
                         let id = String(level) + "x" + String(i) + "x" + String(j);
                         toggleState(id);
                         // generateGrid();
                         // generateOptions();
-                    })
+                    })*/
+                    var mouseDown = false;
+                    column.addEventListener('mousedown', (e) => {
+                        // Disable text selection
+                        e.preventDefault();
+                        // set boolean
+                        let id = String(level) + "x" + String(i) + "x" + String(j);
+                            toggleState(id);
+                        mouseDown = true;
+                    });
+                    column.addEventListener('mouseup', (e) => {
+                        mouseDown = false;
+                    });
+
+                    column.addEventListener('mouseover', (e) => {
+                        e.preventDefault();
+                        if (mouseDown) {
+                            let id = String(level) + "x" + String(i) + "x" + String(j);
+                            toggleState(id);
+                        }
+                    });
+
                     column.style.textAlign = "center";
                     row.appendChild(column);
                 }
                 grid.appendChild(row);
             }
-        }, {onlyOnce: true});
+        }, { onlyOnce: true });
     }
     // database.ref("garages/" + uid).once("value", function(snapshot) {
     //     size = snapshot.val()['size'];
@@ -211,7 +233,7 @@ export default function generateGrid() {
     //             var column = document.createElement("td");
     //             column.setAttribute("id", String(level) + "x" + String(i) + "x" + String(j));
     //             column.style.minWidth = "60px";
-                
+
     //             if (spots[String(level) + "x" + String(i) + "x" + String(j)]['entrance'] == 1) {
     //                 column.classList.add("entrance");
     //             } else if (spots[String(level) + "x" + String(i) + "x" + String(j)]['handicapped'] == 1){
@@ -240,7 +262,7 @@ function toggleState(element_id) {
         cell.classList.add("normal");
         var updates = {
             "entrance": 0,
-            "exists": 1, 
+            "exists": 1,
             "handicapped": 0
         }
         update(ref(database, "garages/" + String(uid) + "/spots/" + String(element_id)), updates);
@@ -257,7 +279,7 @@ function toggleState(element_id) {
         cell.classList.add("handicapped");
         var updates = {
             "entrance": 0,
-            "exists": 1, 
+            "exists": 1,
             "handicapped": 1
         }
         update(ref(database, "garages/" + String(uid) + "/spots/" + String(element_id)), updates);
@@ -273,7 +295,7 @@ function toggleState(element_id) {
         cell.classList.add("entrance");
         var updates = {
             "entrance": 1,
-            "exists": 1, 
+            "exists": 1,
             "handicapped": 0
         }
         update(ref(database, "garages/" + String(uid) + "/spots/" + String(element_id)), updates);
@@ -290,7 +312,7 @@ function toggleState(element_id) {
         cell.classList.add("noexists");
         var updates = {
             "entrance": 0,
-            "exists": 0, 
+            "exists": 0,
             "handicapped": 0
         }
         update(ref(database, "garages/" + String(uid) + "/spots/" + String(element_id)), updates);

@@ -40,12 +40,15 @@ var currentUser;
 //     return input.replace(/\_\(\)/g, ".");
 // }
 var uid;
+
+if (localStorage.getItem('currentUserCS')) {
+    window.location = "dashHome.html";
+} 
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
         uid = user.uid;
         console.log(uid);
-        window.location = "dashHome.html";
-
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         // ...
@@ -111,11 +114,13 @@ signupForm.addEventListener('submit', (e) => {
                         }
                     }
                 }
-
+                console.log("spot data created")
                 update(ref(database, "garages/" + uid), {
                     size: String(level) + "x" + String(rows) + "x" + String(columns),
                     spots: spotData
                 });
+                console.log("spot data updated")
+
             });
 
             // firebase.database().ref("users/"+uid).set({
@@ -137,29 +142,29 @@ signupForm.addEventListener('submit', (e) => {
             window.open('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + uid, '_blank');
             signupForm.reset();
         })
-    // Error checking + messages to user
-    // .catch((error) => {
-    //     console.log(error);
-    //     console.log(error.code);
-    //     console.log(error.message);
-    //     if (error.code == "auth/email-already-in-use") {
-    //         console.log(error.message + " Please use another email address.");
-    //         alert("This email address is already in use, please use another.")
-    //     }
-    //     else if (error.code == "auth/invalid-email") {
-    //         console.log(error.message + " Please use a valid email");
-    //         alert("Please use a valid email.")
-    //     }
-    //     else if (error.code == "auth/operation-not-allowed") {
-    //         console.log(error.message + " Signing in with email and password not allowed. Contact site admin");
-    //         alert("Signing in with email and password not allowed. Please contact site admin.");
-    //     }
-    //     else if (error.code == "auth/weak-password") {
-    //         console.log(error.message + " Password is not strong enough");
-    //         alert("Please use a stronger password.")
-    //     }
+   // Error checking + messages to user
+    .catch((error) => {
+        console.log(error);
+        console.log(error.code);
+        console.log(error.message);
+        if (error.code == "auth/email-already-in-use") {
+            console.log(error.message + " Please use another email address.");
+            alert("This email address is already in use, please use another.")
+        }
+        else if (error.code == "auth/invalid-email") {
+            console.log(error.message + " Please use a valid email");
+            alert("Please use a valid email.")
+        }
+        else if (error.code == "auth/operation-not-allowed") {
+            console.log(error.message + " Signing in with email and password not allowed. Contact site admin");
+            alert("Signing in with email and password not allowed. Please contact site admin.");
+        }
+        else if (error.code == "auth/weak-password") {
+            console.log(error.message + " Password is not strong enough");
+            alert("Please use a stronger password.")
+        }
 
-    // });
+    });
 });
 
 //block

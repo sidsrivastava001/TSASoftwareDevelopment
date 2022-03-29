@@ -132,17 +132,17 @@ The purpose of this file is to create a page for users to enter their informatio
       <br></br>
       <h4>Parking Lot Information</h4>
       <div class="col-md-4">
-        <label for="inputGPA" class="form-label">Max Number of Rows per Level</label>
-        <input type="number" step="1" class="form-control" id="inputRows" required>
+        <label for="rows" class="form-label">Max Number of Rows per Level</label>
+        <input type="number" step="1" class="form-control" id="inputRows"  min="1" max="20" required>
       </div>
       <div class="col-md-4">
-        <label for="inputGPA" class="form-label">Max Number of Columns per Level</label>
-        <input type="number" step="1" class="form-control" id="inputColumns" required>
+        <label for="columns" class="form-label">Max Number of Columns per Level</label>
+        <input type="number" step="1" class="form-control" id="inputColumns" min="1" max="20" required>
       </div>
 
       <div class="col-md-4">
-        <label for="inputGPA" class="form-label">Number of Parking Levels</label>
-        <input type="number" step="1" class="form-control" id="inputLevel" required>
+        <label for="levels" class="form-label">Number of Parking Levels</label>
+        <input type="number" step="1" class="form-control" id="inputLevel" min="1" max="5" required>
       </div>
       <div class="col-10">
         <button class="btn btn-primary">Register</button>
