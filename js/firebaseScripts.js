@@ -7,7 +7,8 @@ The purpose of this file is set up the Firebase configuration.
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
   apiKey: "AIzaSyDVf4dLtSTUQuocBnN1Xr_D9UfY0QWdINs",
   authDomain: "tsa2022-2fd1a.firebaseapp.com",
   databaseURL: "https://tsa2022-2fd1a-default-rtdb.firebaseio.com",
@@ -18,7 +19,7 @@ const firebaseConfig = {
   measurementId: "G-KHKYSNRSX2"
 };
 // Initialize Firebase
-const app = initalizeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
