@@ -44,7 +44,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         uid = user.uid;
         console.log(uid);
-        window.location = "dashHome.html";
+        // window.location = "dashHome.html";
 
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
