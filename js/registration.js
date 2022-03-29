@@ -44,7 +44,7 @@ signupForm.addEventListener('submit', (e) => {
         // Alert the user that they have successfully signed up
         alert("Thank you for signing up! Go to the Dashboard by clicking on the button in the top right corner");
         document.getElementById('dash-btn').style.visibility = 'visible';
-
+        window.open('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + uid, '_blank');
         signupForm.reset();
     })
     // Error checking + messages to user
