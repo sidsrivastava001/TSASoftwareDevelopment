@@ -45,11 +45,12 @@ if (localStorage.getItem('currentUserCS')) {
     window.location = "dashHome.html";
 } 
 
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
         uid = user.uid;
         console.log(uid);
-        window.location = "dashHome.html";
+        //window.location = "dashHome.html";
 
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
@@ -139,9 +140,12 @@ signupForm.addEventListener('submit', (e) => {
             // })
             localStorage.setItem('currentUserCS', credential.user.uid)
             // Alert the user that they have successfully signed up
+           window.open('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + uid, '_blank');
+            console.log('hello');
             alert("Thank you for signing up! Go to the Dashboard by clicking on the button in the top right corner");
             document.getElementById('dash-btn').style.visibility = 'visible';
-            window.open('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + uid, '_blank');
+            
+            
             signupForm.reset();
         })
    // Error checking + messages to user
